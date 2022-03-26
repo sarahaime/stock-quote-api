@@ -7,10 +7,12 @@ const UserSchema = mongoose.Schema({
     match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
   },
   password: { type: String, required: true },
-  role: { type: String, required: true }
+  role: { type: String,
+          enum : ['user','admin', 'super_user', 'super_admin'],
+          required: true }
 });
 
-const model = mongoose.model('User', UserSchema);
+const UserModel = mongoose.model('User', UserSchema);
 
-module.exports = model;
+module.exports = UserModel;
 

@@ -1,17 +1,31 @@
-const UserModel = require('mongoose').model('User'); 
+const UserModel = require('../models/user'); 
 
-const registerUser = (data) => ({
- 
+const register = async (data) => {
+  let randPassword = generateRandomPassword();
+  let newUser = new UserModel({...data, password : randPassword});
+  let savedUser = await newUser.save();
+  console.log(savedUser);
 
-});
+  return randPassword; 
+};
 
-const userLogin = (data) => ({
+const login = (data) => {
     
-});
+};
 
-const userResetPassword = (data) => ({
+
+
+const isEmailInUse = async (email) => {
+  let user = await UserModel.findOne({ email: email});
+  console.log(user);
+  return user != null;
+}
+
+
+const resetPassword = (data) => {
     
-});
+};
+
 
 const generateRandomPassword = () => {
   const chars = "0123456789abcdef";
@@ -25,4 +39,4 @@ const generateRandomPassword = () => {
 };
 
 
-module.exports = { registerUser, userLogin,  userResetPassword };
+module.exports = { register, login,  resetPassword, isEmailInUse };

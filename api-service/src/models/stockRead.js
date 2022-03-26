@@ -31,5 +31,5 @@ const stockReadSchema = mongoose.Schema({
         default: Date.now
     }
 })
-
-module.exports = mongoose.model('stockRead', stockReadSchema);
+const stockReadModel = mongoose.model('stockRead', stockReadSchema);
+module.exports = stockReadModel;
