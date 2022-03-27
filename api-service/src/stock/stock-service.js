@@ -1,6 +1,5 @@
-const UserModel = require('../models/user'); 
 const StockReadModel = require('../models/stockRead'); 
-
+const ObjectId = require('mongoose').Types.ObjectId; 
 const getStock = async (userId, symbol) =>{
 
     //call stock service
@@ -19,7 +18,24 @@ const getStock = async (userId, symbol) =>{
 }
 
 const getHistory = async (userId) =>{
-    return await UserModel.find({ user: userId }).populate("stockReads");
+    return await StockReadModel.aggregate( [
+        {
+            $match: {
+                userId: new ObjectId(userId)
+            }
+        },
+        {
+            $sort: { 
+                date: -1 
+            }
+         },
+         { 
+            $project: {
+                _id: 0,
+                __v: 0,
+               userId: 0 
+            }
+        } ] );
 }
 
 const getStats = async (limit = 5) =>{
@@ -45,7 +61,7 @@ const getStats = async (limit = 5) =>{
 }
 
 const saveRead = async ( userId, stock) =>{
-    const newStockRead = new StockReadModel({...stock, user: userId});
+    const newStockRead = new StockReadModel({...stock, userId: userId});
     await newStockRead.save();
 };
 

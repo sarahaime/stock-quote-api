@@ -1,7 +1,6 @@
 const stockService = require('./stock-service');
 
 const getStock = async (req, res) =>{
-    console.log(req);
     const quote = req.query.q;
     let ans = await stockService.getStock("623faf57973963593ba6b953", quote)
     return res.json(ans);
