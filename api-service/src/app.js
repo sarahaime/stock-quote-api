@@ -3,6 +3,8 @@ const express = require('express');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
+const userRouter = require('./routes/user-router');
+const stockRouter = require('./routes/stock-router');
 
 
 const app = express();
@@ -13,7 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.use('/', indexRouter);
-
+app.use('/user', userRouter);
+app.use('/stock', stockRouter);
 
 
 

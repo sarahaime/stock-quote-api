@@ -3,6 +3,7 @@ const express = require('express');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
+const stocksRouter = require('./routes/stocks-router');
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
+app.use('/stock', stocksRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

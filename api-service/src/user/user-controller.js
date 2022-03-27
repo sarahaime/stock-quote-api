@@ -26,7 +26,7 @@ const login = async (req, res) =>{
 
     if(isValidCredential){
         const accessToken = await userService.generateAccessToken(userCredentials);
-        return res.header('auth-token', accessToken).json({message: "Welcome 🙌"});
+        return res.header('auth-token', accessToken).json({message: "Welcome 🙌", token: accessToken});
     }
 
     return res.status(400).json({ error: 'Email and password not match' });
