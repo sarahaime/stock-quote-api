@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var userController = require('../user/user-controller');
 var stockController = require('../stock/stock-controller');
+var authorize = require('../middlewares/access-validations');
 
 router.get('/', function(req, res, next) {
   res.status(200).json({Say: "Hello world"})
@@ -16,13 +17,13 @@ router.route('/user/login')
 
 
 router.route('/stock')
-  .get(stockController.getStock);
+  .get(authorize.authorize(), stockController.getStock);
 
 router.route('/stock/history')
-  .get(stockController.getHistory);
+  .get(authorize.authorize(), stockController.getHistory);
 
 router.route('/stock/stats')
-  .get(stockController.getStats);
+  .get(authorize.authorize(['super_user']), stockController.getStats);
 
 
 
