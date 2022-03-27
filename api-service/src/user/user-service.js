@@ -1,5 +1,7 @@
 const UserModel = require('../models/user'); 
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 const register = async (data) => {
   let randomPassword = generateRandomPassword();
@@ -11,11 +13,25 @@ const register = async (data) => {
   return { email: savedUser.email , password: randomPassword }; 
 };
 
-const login = (data) => {
-    
+const areValidCredentials = async (userCredentials) => {
+  const user = await UserModel.findOne({ email: userCredentials.email });
+  const isValidCredential = await bcrypt.compare(userCredentials.password, user.password);
+  return isValidCredential;
 };
 
+const generateAccessToken = async (userCredential) =>{
+    const user = await UserModel.findOne({ email: userCredential.email });
+    const accessToken = jwt.sign({
+      email: user.email,
+      role: user.role,
+      id: user._id
+    }, process.env.TOKEN_SECRET, {
+      expiresIn: "24h",
+    });
 
+    return accessToken; 
+
+}
 
 const isEmailInUse = async (email) => {
   let user = await UserModel.findOne({ email: email});
@@ -24,7 +40,7 @@ const isEmailInUse = async (email) => {
 }
 
 
-const resetPassword = (data) => {
+const resetPassword = (email) => {
     
 };
 
@@ -41,4 +57,4 @@ const generateRandomPassword = () => {
 };
 
 
-module.exports = { register, login,  resetPassword, isEmailInUse };
+module.exports = { register, areValidCredentials, generateAccessToken, resetPassword, isEmailInUse };

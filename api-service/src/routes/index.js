@@ -7,6 +7,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.route('/user/register')
-  .post(userController.register);
+  .post( userController.register);
+
+router.route('/user/login')
+  .post( userController.login);
 
 module.exports = router;
