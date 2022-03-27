@@ -4,11 +4,11 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const register = async (data) => {
-  let randomPassword = generateRandomPassword();
+  const randomPassword = generateRandomPassword();
   const salt = await bcrypt.genSalt(10);
   const passwordHash = await bcrypt.hash(randomPassword, salt);
-  let newUser = new UserModel({...data, password : passwordHash});
-  let savedUser = await newUser.save();
+  const newUser = new UserModel({...data, password : passwordHash});
+  const savedUser = await newUser.save();
 
   return { email: savedUser.email , password: randomPassword }; 
 };
@@ -25,7 +25,7 @@ const generateAccessToken = async (userCredential) =>{
       email: user.email,
       role: user.role,
       id: user._id
-    }, process.env.TOKEN_SECRET, {
+     }, process.env.TOKEN_SECRET, {
       expiresIn: "24h",
     });
 
@@ -34,7 +34,7 @@ const generateAccessToken = async (userCredential) =>{
 }
 
 const isEmailInUse = async (email) => {
-  let user = await UserModel.findOne({ email: email});
+  const user = await UserModel.findOne({ email: email});
   console.log(user);
   return user != null;
 }

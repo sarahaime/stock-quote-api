@@ -2,15 +2,14 @@ const userService = require('./user-service');
 
 const register = async (req, res) => {
     try {
-
         const newUserData = req.body;
         const isEmailInUse = await userService.isEmailInUse(newUserData.email);
-        
+
         if (isEmailInUse) {
             return res.status(400).json({error: 'Email address already in use'})
         }
         
-        let userCredential = await userService.register(newUserData);
+        const userCredential = await userService.register(newUserData);
         res.json(userCredential);
     } catch (error) {
         res.status(400).json({error})
@@ -18,9 +17,9 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) =>{
-    let userCredentials = req.body;
-    let isValidCredential = await userService.areValidCredentials(userCredentials);
-    let isEmailInUse = await userService.isEmailInUse(userCredentials.email);
+    const userCredentials = req.body;
+    const isValidCredential = await userService.areValidCredentials(userCredentials);
+    const isEmailInUse = await userService.isEmailInUse(userCredentials.email);
 
     if (!isEmailInUse) 
         return res.status(400).json({ error: 'User does not exist' });
