@@ -1,12 +1,14 @@
 const UserModel = require('../models/user'); 
+const bcrypt = require('bcrypt');
 
 const register = async (data) => {
-  let randPassword = generateRandomPassword();
-  let newUser = new UserModel({...data, password : randPassword});
+  let randomPassword = generateRandomPassword();
+  const salt = await bcrypt.genSalt(10);
+  const passwordHash = await bcrypt.hash(randomPassword, salt);
+  let newUser = new UserModel({...data, password : passwordHash});
   let savedUser = await newUser.save();
-  console.log(savedUser);
 
-  return randPassword; 
+  return { email: savedUser.email , password: randomPassword }; 
 };
 
 const login = (data) => {
