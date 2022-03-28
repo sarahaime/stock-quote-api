@@ -1,4 +1,4 @@
-const stockService = require('./stock-service');
+const stockService = require('./stock.service');
 
 const getStock = async (req, res) =>{
     const quote = req.query.q;

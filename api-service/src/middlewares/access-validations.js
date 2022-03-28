@@ -7,7 +7,7 @@ const authorize = (roles = []) => {
                 verifyToken,
                 (req, res, next) => {
                     if (roles.length && !roles.includes(req.user.role)) {
-                        return res.status(401).json({ error: 'You are unauthorized, to see this resource' });
+                        return res.status(401).json({ error: 'You are unauthorized to see this resource' });
                     }
 
                     // authentication and authorization successful

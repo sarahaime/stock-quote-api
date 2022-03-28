@@ -1,4 +1,4 @@
-const StockReadModel = require('../models/stockRead'); 
+const StockReadModel = require('../models/stockRead.model'); 
 const axios = require('axios');
 require('dotenv').config();
 const ObjectId = require('mongoose').Types.ObjectId; 

@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var userController = require('../user/user-controller');
+var authController = require('../auth/auth.controller');
 
 router.route('/register')
-  .post( userController.register);
+  .post( authController.register);
 
 router.route('/login')
-  .post( userController.login);
+  .post( authController.login);
 
 
 module.exports = router;

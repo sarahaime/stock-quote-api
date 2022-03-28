@@ -1,4 +1,4 @@
-const stockService = require('./stocks-service');
+const stockService = require('./stock.service');
 
 const getStock = async(req, res) =>{
     const stockCode = req.params.stock_code;
