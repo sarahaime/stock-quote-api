@@ -26,7 +26,7 @@ const generateAccessToken = async (userCredential) =>{
       role: user.role,
       id: user._id
      }, process.env.TOKEN_SECRET, {
-      expiresIn: "24h",
+      expiresIn: "48h",
     });
 
     return accessToken; 

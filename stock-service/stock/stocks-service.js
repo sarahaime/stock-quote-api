@@ -4,10 +4,9 @@ const axios = require('axios');
 const getStock = async (stockCode) =>{
     let resp = await axios.get(`https://stooq.com/q/l/?s=${stockCode}&f=sd2t2ohlcvn&h&e=csv`);
     const stock = getStockReadFromCsv(resp.data);
+    delete stock.date;
     return stock;
 }
-
-
 
 const getStockReadFromCsv = (csv) => {
     const rows = csv.replace('\r','').split('\n');

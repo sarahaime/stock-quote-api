@@ -1,18 +1,12 @@
 const StockReadModel = require('../models/stockRead'); 
+const axios = require('axios');
+require('dotenv').config();
 const ObjectId = require('mongoose').Types.ObjectId; 
-const getStock = async (userId, symbol) =>{
 
-    //call stock service
-    const stock = {
-            name: "APPLE",
-            symbol: symbol,
-            open: 123.66,
-            high: 123.66,
-            low: 122.49,
-            close: 123
-        };
-      
-    //store read
+const getStock = async (userId, stockCode) =>{
+    let url = `${process.env.STOCK_SERVICE_URL}/stock/${stockCode}`;
+    const stockResp = await axios.get(url).data;
+    const stock = stockResp.data;
     await saveRead(userId, stock );
     return stock;
 }

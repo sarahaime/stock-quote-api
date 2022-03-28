@@ -2,6 +2,10 @@ const stockService = require('./stock-service');
 
 const getStock = async (req, res) =>{
     const quote = req.query.q;
+
+    if(!quote)
+        return res.status(400).json({error: "Stock code is required"});
+
     let ans = await stockService.getStock(req.user.id, quote)
     return res.json(ans);
 }
