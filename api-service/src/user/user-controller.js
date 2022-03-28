@@ -5,8 +5,7 @@ const register = async (req, res) => {
     try {
         const newUserData = req.body;
 
-        
-        const { error } = userRequestValidations.register.validate(newUserData)
+        const { error } = userRequestValidations.register.validate(newUserData);
         if (error) 
             return res.status(400).json({error: error.details[0].message})
 
@@ -18,8 +17,10 @@ const register = async (req, res) => {
         
         const userCredential = await userService.register(newUserData);
         res.json(userCredential);
+
     } catch (error) {
-        res.status(400).json({error: error.message})
+        console.log("**********************////////////////", error);
+        res.status(500).json({error: error.message})
     }
 }
 
@@ -43,5 +44,30 @@ const login = async (req, res) =>{
     return res.status(400).json({ error: 'Email and password not match' });
 }
 
-module.exports = { register, login };
+
+const resetPasswordRequest = async(req, res)=>{
+
+    try {
+        
+        const { error } = userRequestValidations.resetPasswordRequest.validate(req.body);
+        if (error) 
+        return res.status(400).send(error.details[0].message);
+
+        const email = req.body.email;
+        const isEmailInUse = await userService.isEmailInUse(email);
+
+        if (!isEmailInUse)
+            return res.status(400).send("User with given email does not exist");
+    
+        await userService.sendResetPasswordRequest(email);
+
+        res.json({message: "Password reset link has been sent to your email account, please use it in the next 24 hours"});
+      }catch (error) {
+          res.status(500).json({error: "Unexpected error has occur"});
+      }
+    
+
+}
+
+module.exports = { register, login, resetPasswordRequest };
 

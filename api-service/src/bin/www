@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('api-service:server');
 var http = require('http');
 var mongoose = require('mongoose');
+require('dotenv').config();
 
 /**
  * Get port from environment and store in Express.
@@ -78,7 +79,7 @@ function onError(error) {
   }
 }
 
-mongoose.connect("mongodb://localhost:27017/api-service")
+mongoose.connect(process.env.DB_URL)
 .then(() => console.log('🔌🍃 Connected to mongodb 🔌🍃'))
 .catch(e => console.log('error db:', e))
 
