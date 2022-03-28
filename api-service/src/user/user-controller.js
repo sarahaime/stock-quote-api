@@ -29,15 +29,15 @@ const login = async (req, res) =>{
     if (error) 
         return res.status(400).json({error: error.details[0].message})
 
-    const isValidCredential = await userService.areValidCredentials(userCredentials);
+    const areValidCredentials = await userService.areValidCredentials(userCredentials);
     const isEmailInUse = await userService.isEmailInUse(userCredentials.email);
 
     if (!isEmailInUse) 
         return res.status(400).json({ error: 'User does not exist' });
 
-    if(isValidCredential){
+    if(areValidCredentials){
         const accessToken = await userService.generateAccessToken(userCredentials);
-        return res.header('auth-token', accessToken).json({message: "Welcome 🙌", token: accessToken});
+        return res.header('Authorization', 'Bearer ' + accessToken).json({message: "Welcome 🙌", accessToken: accessToken});
     }
 
     return res.status(400).json({ error: 'Email and password not match' });

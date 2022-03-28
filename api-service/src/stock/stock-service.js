@@ -5,9 +5,15 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 const getStock = async (userId, stockCode) =>{
     let url = `${process.env.STOCK_SERVICE_URL}/stock/${stockCode}`;
-    const stockResp = await axios.get(url).data;
+    const stockResp = await axios.get(url).catch( err => {
+        return err.response.data;
+    });
+
+    if(stockResp.error)
+        return stockResp;
+
     const stock = stockResp.data;
-    await saveRead(userId, stock );
+    await saveRead(userId, stock);
     return stock;
 }
 

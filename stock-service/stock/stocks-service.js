@@ -2,9 +2,17 @@
 const axios = require('axios');
 
 const getStock = async (stockCode) =>{
-    let resp = await axios.get(`https://stooq.com/q/l/?s=${stockCode}&f=sd2t2ohlcvn&h&e=csv`);
+    let resp = await axios.get(`https://stooq.com/q/l/?s=${stockCode}&f=sd2t2ohlcvn&h&e=csv`).catch( err => {
+       return {  error: 'Internal problem in stooq, please try again later', status: 501 }
+    });
+
+    if(resp.error)
+        return resp;
+
     const stock = getStockReadFromCsv(resp.data);
-    delete stock.date;
+    if(stock.open == 'N/D')
+        return {  error: `${stockCode} is not available in stooq.com`, status: 404 };
+
     return stock;
 }
 

@@ -6,8 +6,12 @@ const getStock = async (req, res) =>{
     if(!quote)
         return res.status(400).json({error: "Stock code is required"});
 
-    let ans = await stockService.getStock(req.user.id, quote)
-    return res.json(ans);
+    let stockRead = await stockService.getStock(req.user.id, quote)
+
+    if(stockRead.error)
+        return res.status(stockRead.status).json({ error: stockRead.error });
+
+    return res.json(stockRead);
 }
 
 const getHistory = async (req, res) =>{

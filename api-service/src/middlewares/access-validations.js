@@ -1,5 +1,5 @@
 
-const jwt = require('jsonwebtoken')
+const jwt  = require('jsonwebtoken')
 require('dotenv').config();
 //to authorize users based on roles
 const authorize = (roles = []) => {
@@ -19,8 +19,8 @@ const authorize = (roles = []) => {
 
 // Authenticate JWT token and attach user to request as req.user
 const verifyToken = (req, res, next) => {
-    const accessToken = req.header('auth-token');
-
+    const authHeader = req.headers.authorization;
+    const accessToken = authHeader.split(' ')[1];
     if (!accessToken) 
         return res.status(401).json({ error: 'Please login' });
 
