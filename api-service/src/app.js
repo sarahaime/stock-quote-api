@@ -18,7 +18,7 @@ app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/stock', stockRouter);
 
-
+app.set('view engine', 'pug');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

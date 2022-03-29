@@ -1,6 +1,6 @@
-const UserModel = require('../models/user.model'); 
-const TokenModel = require('../models/token.model');
-const { sendEmail } = require('../utils/mail.service');
+const UserModel = require('../../models/user.model'); 
+const TokenModel = require('../../models/token.model');
+const { sendEmail } = require('../../utils/mail.service');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { required } = require('@hapi/joi');

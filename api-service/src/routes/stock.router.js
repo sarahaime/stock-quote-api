@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var stockController = require('../stock/stock.controller');
+var stockController = require('../app/stock/stock.controller');
 var authorize = require('../middlewares/access-validations');
 
 router.route('')

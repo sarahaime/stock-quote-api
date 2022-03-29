@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var authController = require('../auth/auth.controller');
+var authController = require('../app/auth/auth.controller');
 
 router.route('/register')
   .post( authController.register);
