@@ -7,7 +7,7 @@ const getStock = async (userId, stockCode) =>{
     let url = `${process.env.STOCK_SERVICE_URL}/stock/${stockCode}`;
     
     const stockResp = await axios.get(url).catch( err => {
-        return err.response.data;
+        return err.response ? err.response.data : {status: 502, error:"Stock API not available, please try again later"};
     });
 
     if(stockResp.error)

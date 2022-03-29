@@ -1,7 +1,9 @@
 const UserModel = require('../models/user.model'); 
-const TokenModel = require('../models/token.model')
+const TokenModel = require('../models/token.model');
+const { sendEmail } = require('../utils/mail.service');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { required } = require('@hapi/joi');
 require('dotenv').config();
 
 const register = async (data) => {
@@ -40,38 +42,34 @@ const isEmailInUse = async (email) => {
 }
 
 const sendResetPasswordRequest = async (email) =>{
-  const user = await UserModel.findOne({ email: email });
-  const token = await TokenModel.findOne({ userId: user._id });
-  if (!token) {
-        token = await new TokenModel({
-            userId: user._id,
-            token: generateRandomString()
-        }).save();
+  let token = await TokenModel.findOne({ email: email});
+  if (token) {
+    await token.delete();
   }
 
-  const link = `${process.env.BASE_URL}/user/password-reset/${user._id}/${token.token}`;
-  await sendEmail(user.email, "Password reset", link);
+  token = await new TokenModel({
+              email: email,
+              token: generateRandomString()
+          }).save();
+
+  const link = `${process.env.BASE_URL}/password-reset?email=${email}&&token=${token.token}`;
+  await sendEmail(email, "Password reset", link);
 
 }
 
 
-
-
-const resetPassword = async(userId, token, newPassword) => {
-  const passwordResetToken = await TokenModel.findOne({ userId: userId });
+const resetPassword = async(data) => {
+  const email = data.email, token = data.token, newPassword = data.password;
+  let passwordResetToken = await TokenModel.findOne({ email: email, token: token });
   if (!passwordResetToken) {
     return {error: "Invalid or expired password reset token" };
-  }
-  const isValidToken = await bcrypt.compare(token, passwordResetToken.token);
-  if (!isValidToken) {
-    return {error: "Invalid or expired password reset token" }
   }
 
   const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_SALT));
   const passwordHash = await bcrypt.hash(newPassword, salt);
 
   await UserModel.updateOne(
-                  { _id: userId },
+                  { email: email },
                   { $set: { password: passwordHash } },
                 );
 
@@ -82,7 +80,7 @@ const resetPassword = async(userId, token, newPassword) => {
 
 
 const generateRandomString = () => {
-  const chars = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM!@#$%^&*()_+=-?><";
+  const chars = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM!@#*()_-";
   const randomArray = Array.from(
     { length: 32 },
     (v, k) => chars[Math.floor(Math.random() * chars.length)]

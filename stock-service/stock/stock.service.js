@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const getStock = async (stockCode) =>{
     let resp = await axios.get(`https://stooq.com/q/l/?s=${stockCode}&f=sd2t2ohlcvn&h&e=csv`).catch( err => {
-       return {  error: 'Internal problem on stooq, please try again later', status: 501 }
+       return {  error: 'Internal problem on stooq, please try again later', status: 502 }
     });
 
     if(resp.error)

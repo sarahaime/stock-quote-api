@@ -15,15 +15,8 @@ const getStock = async (req, res) =>{
 }
 
 const getHistory = async (req, res) =>{
-    try{
-        let history = await stockService.getHistory(req.user.id);
-        return res.json(history);
-    }catch (error) {
-        console.error("****************************", error);
-        // expected output: ReferenceError: nonExistentFunction is not defined
-        // Note - error messages will vary depending on browser
-      }
-      
+    let history = await stockService.getHistory(req.user.id);
+    return res.json(history);  
 }
 
 const getStats = async (req, res) =>{

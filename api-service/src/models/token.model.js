@@ -1,10 +1,12 @@
+const { string } = require("@hapi/joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const tokenSchema = new Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
+  email: {
+    type: String,
     required: true,
-    ref: "user",
+    trim: true, 
+    match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
   },
   token: {
     type: String,
