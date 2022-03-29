@@ -2,12 +2,17 @@ const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
 
+const path = require('path');
+
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth.router');
 const stockRouter = require('./routes/stock.router');
 
 
 const app = express();
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -18,10 +23,11 @@ app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/stock', stockRouter);
 
-app.set('view engine', 'pug');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  res.status(404).json({});
+  next(createError(404));
   next(createError(404));
 });
 

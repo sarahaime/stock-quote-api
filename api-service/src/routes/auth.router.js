@@ -8,12 +8,20 @@ router.route('/register')
 router.route('/login')
   .post( authController.login);
 
-
-router.route('/reset-password/:email')
+router.route('/password-reset/:email')
   .post( authController.resetPasswordRequest);
 
-router.route('/reset-password')
+router.route('/password-reset')
   .post( authController.resetPassword);
 
+
+router.route('/password-reset/:email/:token')
+  .get( (req, res) => {
+    const data = {
+      email: req.params.email,
+      token: req.params.token
+    }
+    return res.render('password-reset', data);
+  });
 
 module.exports = router;

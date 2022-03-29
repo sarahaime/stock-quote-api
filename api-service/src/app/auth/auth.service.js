@@ -52,7 +52,7 @@ const sendResetPasswordRequest = async (email) =>{
               token: generateRandomString()
           }).save();
 
-  const link = `${process.env.BASE_URL}/password-reset?email=${email}&&token=${token.token}`;
+  const link = `${process.env.BASE_URL}/password-reset/${email}/${token.token}`;
   await sendEmail(email, "Password reset", link);
 
 }
