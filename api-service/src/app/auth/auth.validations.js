@@ -11,16 +11,16 @@ const login = Joi.object({
 })
 
 
-const resetPasswordRequest  = Joi.object({ 
+const passwordResetRequest  = Joi.object({ 
     email: Joi.string().max(255).required().email(),
 });
 
-const resetPassword = Joi.object({
-    userId:Joi.string().required(),
+const passwordReset = Joi.object({
+    email:Joi.string().required().email(),
     password: Joi.string().required(),
     token: Joi.string().required(),
 })
 
 
 
-module.exports = { register, login, resetPasswordRequest, resetPassword};
+module.exports = { register, login, passwordResetRequest, passwordReset};

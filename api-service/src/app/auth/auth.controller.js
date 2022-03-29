@@ -43,10 +43,10 @@ const login = async (req, res) =>{
     return res.status(400).json({ error: 'Email and password not match' });
 }
 
-const resetPasswordRequest = async(req, res)=>{
+const passwordResetRequest = async(req, res)=>{
     try {
         
-        const { error } = authRequestValidations.resetPasswordRequest.validate(req.params);
+        const { error } = authRequestValidations.passwordResetRequest.validate(req.params);
         if (error) 
         return res.status(400).send(error.details[0].message);
 
@@ -61,15 +61,15 @@ const resetPasswordRequest = async(req, res)=>{
         res.json({message: "Password reset link has been sent to your email account, please use it in the next 24 hours"});
       }catch (error) {
           console.error(error);
-          res.status(500).json({error: "Unexpected error has occur"});
+          res.status(500).json({error: "An unexpected error has occurred"});
       }
 }
 
 
-const resetPassword = async(req, res)=>{
+const passwordReset = async(req, res)=>{
     try {
-        const data = req.data;
-        const { error } = authRequestValidations.resetPassword.validate(data);
+        const data = req.body;
+        const { error } = authRequestValidations.passwordReset.validate(data);
         if (error) 
             return res.status(400).send(error.details[0].message);
 
@@ -77,11 +77,11 @@ const resetPassword = async(req, res)=>{
         if (!isEmailInUse)
             return res.status(400).send("User with given email does not exist");
     
-        let passwordReseted = await authService.resetPassword(data);
+        let passwordReseted = await authService.passwordReset(data);
         if(passwordReseted.error)
             return res.status(400).json(passwordReseted);
 
-        res.json({message: "Password reset success"});
+        res.json({message: "Password reset successfully!!"});
       }catch (error) {
           res.status(500).json({error: "Unexpected error has occure"});
       }
@@ -89,5 +89,5 @@ const resetPassword = async(req, res)=>{
 }
 
 
-module.exports = { register, login, resetPasswordRequest, resetPassword };
+module.exports = { register, login, passwordResetRequest, passwordReset };
 

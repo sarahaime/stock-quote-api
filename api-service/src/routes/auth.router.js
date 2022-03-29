@@ -9,10 +9,10 @@ router.route('/login')
   .post( authController.login);
 
 router.route('/password-reset/:email')
-  .post( authController.resetPasswordRequest);
+  .post( authController.passwordResetRequest);
 
 router.route('/password-reset')
-  .post( authController.resetPassword);
+  .post( authController.passwordReset);
 
 
 router.route('/password-reset/:email/:token')

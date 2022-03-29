@@ -58,7 +58,7 @@ const sendResetPasswordRequest = async (email) =>{
 }
 
 
-const resetPassword = async(data) => {
+const passwordReset = async(data) => {
   const email = data.email, token = data.token, newPassword = data.password;
   let passwordResetToken = await TokenModel.findOne({ email: email, token: token });
   if (!passwordResetToken) {
@@ -91,4 +91,4 @@ const generateRandomString = () => {
 };
 
 
-module.exports = { register, areValidCredentials, generateAccessToken, resetPassword, sendResetPasswordRequest, isEmailInUse };
+module.exports = { register, areValidCredentials, generateAccessToken, passwordReset, sendResetPasswordRequest, isEmailInUse };
