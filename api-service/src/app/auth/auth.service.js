@@ -12,7 +12,6 @@ const register = async (data) => {
   const passwordHash = await bcrypt.hash(randomPassword, salt);
   const newUser = new UserModel({...data, password : passwordHash});
   const savedUser = await newUser.save();
-
   return { email: savedUser.email , password: randomPassword }; 
 };
 
@@ -33,7 +32,6 @@ const generateAccessToken = async (userCredential) =>{
     });
 
     return accessToken; 
-
 }
 
 const isEmailInUse = async (email) => {
@@ -54,7 +52,6 @@ const sendResetPasswordRequest = async (email) =>{
 
   const link = `${process.env.BASE_URL}/password-reset/${email}/${token.token}`;
   await sendEmail(email, "Password reset", link);
-
 }
 
 

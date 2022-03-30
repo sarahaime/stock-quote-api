@@ -79,10 +79,11 @@ function onError(error) {
   }
 }
 
-const databaseUrl = process.env.DB_URL;
+let databaseUrl = process.env.DB_URL;
 
-if(process.env.NODE_ENV == "testing")
+if(process.env.NODE_ENV == "testing"){
   databaseUrl = process.env.DB_URL_TEST;
+}
 
 mongoose.connect(databaseUrl)
 .then(() => console.log('🔌🍃 Connected to mongodb 🔌🍃'))
