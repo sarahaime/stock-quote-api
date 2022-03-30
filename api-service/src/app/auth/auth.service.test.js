@@ -8,7 +8,6 @@ const should = require('chai').should();
 const expect = require('chai');
 const { doesNotMatch } = require('assert');
 
-// { register, areValidCredentials, generateAccessToken, passwordReset, sendResetPasswordRequest, isEmailInUse };
 describe('Authentication Service Tests', () => {
   describe('#register()',  () => {
    
@@ -43,10 +42,7 @@ describe('Authentication Service Tests', () => {
       assert.strictEqual(areValidCredentials, true);
     });
 
-
-    
     it('invalid email should return false',  async () => {
-
       let invalidCredentials = { email: existingUser.email, password: existingUserPassword + 'Not valid part'}
       let areValidCredentials = await authService.areValidCredentials(invalidCredentials);
       assert.strictEqual(areValidCredentials, false);
@@ -54,11 +50,11 @@ describe('Authentication Service Tests', () => {
 
         
     it('invalid password should return false',  async () => {
-      request(app, async () =>{
-        let invalidCredentials = { email: 'not_valid_part'+ existingUser.email, password: existingUserPassword }
-        let areValidCredentials = await authService.areValidCredentials(invalidCredentials);
-        assert.strictEqual(areValidCredentials, false);
-      });
+
+      let invalidCredentials = { email: 'not_valid_part'+ existingUser.email, password: existingUserPassword }
+      let areValidCredentials = await authService.areValidCredentials(invalidCredentials);
+      assert.strictEqual(areValidCredentials, false);
+      
     });
 
     beforeEach(async () => {
@@ -76,6 +72,32 @@ describe('Authentication Service Tests', () => {
         await new UserModel(existingUser).save();
     });
 
+
+  });
+
+  describe('#isEmailInUse()',  () => {
+    let existingUser = {};
+    it('should return true',  async () => {
+        let isEmailInUse = await authService.isEmailInUse(existingUser.email);
+        assert.strictEqual(isEmailInUse, true);
+    });
+
+    it('should return false',  async () => {
+      let notInUseEmail = "noinuse@testing.com"
+      let isEmailInUse = await authService.isEmailInUse( notInUseEmail );
+      assert.strictEqual(isEmailInUse, false);
+    });
+
+    beforeEach(async () => {
+      request(app);
+      await UserModel.deleteMany();
+      existingUser = { 
+        password: "123abc",
+        role: 'user',
+        email: 'existingemail@testing.com'
+      }
+      await new UserModel(existingUser).save();
+    });
 
   });
 

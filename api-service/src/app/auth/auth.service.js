@@ -17,6 +17,10 @@ const register = async (data) => {
 
 const areValidCredentials = async (userCredentials) => {
   const user = await UserModel.findOne({ email: userCredentials.email });
+  
+  if(!user)
+    return false;
+
   const isValidCredential = await bcrypt.compare(userCredentials.password, user.password);
   return isValidCredential;
 };
