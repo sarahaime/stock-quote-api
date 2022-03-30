@@ -45,7 +45,6 @@ const login = async (req, res) =>{
 
 const passwordResetRequest = async(req, res)=>{
     try {
-        
         const { error } = authRequestValidations.passwordResetRequest.validate(req.params);
         if (error) 
         return res.status(400).send(error.details[0].message);

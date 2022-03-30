@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./src/bin/www",
-    "test": "cross-env NODE_ENV=testing mocha './src/app/**/*test.js' --recursive --timeout 15000"
+    "test": "cross-env NODE_ENV=testing mocha './src/app/**/*test.js' --recursive --timeout 10000 --exit "
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",

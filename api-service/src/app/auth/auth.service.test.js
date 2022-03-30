@@ -36,21 +36,20 @@ describe('Authentication Service Tests', () => {
   describe('#areValidCredentials()',  () => {
     let existingUser = {}, existingUserPassword;
 
-    it('should return true with valid credentials',  async () => {
+    it('should return true',  async () => {
       let validCredentials = { email:existingUser.email, password: existingUserPassword }
       let areValidCredentials = await authService.areValidCredentials(validCredentials);
       assert.strictEqual(areValidCredentials, true);
     });
 
-    it('invalid email should return false',  async () => {
+    it('should return false',  async () => {
       let invalidCredentials = { email: existingUser.email, password: existingUserPassword + 'Not valid part'}
       let areValidCredentials = await authService.areValidCredentials(invalidCredentials);
       assert.strictEqual(areValidCredentials, false);
     });
 
         
-    it('invalid password should return false',  async () => {
-
+    it('should return false',  async () => {
       let invalidCredentials = { email: 'not_valid_part'+ existingUser.email, password: existingUserPassword }
       let areValidCredentials = await authService.areValidCredentials(invalidCredentials);
       assert.strictEqual(areValidCredentials, false);
@@ -71,6 +70,11 @@ describe('Authentication Service Tests', () => {
         }
         await new UserModel(existingUser).save();
     });
+
+    afterEach(async () => {
+      await UserModel.deleteMany();
+    });
+
 
 
   });
@@ -106,7 +110,7 @@ describe('Authentication Service Tests', () => {
     let existingUser = {};
     it('should return a string',  async () => {
         let accessToken = await authService.generateAccessToken( existingUser );
-        accessToken.should.be.a("string");
+        accessToken.should.be.a("string"); 
     });
 
     beforeEach(async () => {
@@ -122,6 +126,7 @@ describe('Authentication Service Tests', () => {
         email: 'existingemail@testing.com'
       }
       await new UserModel(existingUser).save();
+      
   });
 
   });
