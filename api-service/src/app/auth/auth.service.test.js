@@ -1,4 +1,5 @@
 const assert = require('assert');
+const authService = require('./auth.service');
 
 describe('User Authentication Service Tests', () => {
 

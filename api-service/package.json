@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./src/bin/www",
-    "test": "mocha './src/**/*test.js' --recursive"
+    "test": "NODE_ENV=testing mocha './src/app/**/*test.js' --recursive"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
