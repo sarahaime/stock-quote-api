@@ -10,6 +10,8 @@ const stockRouter = require('./routes/stock.router');
 
 
 const app = express();
+const swaggerJSDoc=require('swagger-jsdoc');
+const swaggerUI=require('swagger-ui-express');
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
@@ -18,6 +20,25 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+const swaggerOptions={
+  definition:{
+      openapi:'3.0.0',
+      info:{
+          title:'Stock quotes API',
+          version:'1.0.0',
+          description:'A simple API with Node.js + Express, to allow users to query stock quotes.',
+          contact:{
+              name:'Sarahaime Rodriguez',
+              email:'sarardz095@gmail.com'
+          },
+          servers:["http://localhost:3001"]
+      }
+  },
+  apis:[`${__dirname}/routes/auth.router.js`]
+}
+
+const swaggerDocs=swaggerJSDoc(swaggerOptions);
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocs));
 
 app.use('/', indexRouter);
 app.use('/', authRouter);
