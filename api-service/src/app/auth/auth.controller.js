@@ -47,13 +47,13 @@ const passwordResetRequest = async(req, res)=>{
     try {
         const { error } = authRequestValidations.passwordResetRequest.validate(req.params);
         if (error) 
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).json({ error: error.details[0].message});
 
         const email = req.params.email;
         const isEmailInUse = await authService.isEmailInUse(email);
 
         if (!isEmailInUse)
-            return res.status(400).send("User with given email does not exist");
+            return res.status(404).json({error: "User with given email does not exist"});
     
         await authService.sendResetPasswordRequest(email);
 
@@ -70,15 +70,15 @@ const passwordReset = async(req, res)=>{
         const data = req.body;
         const { error } = authRequestValidations.passwordReset.validate(data);
         if (error) 
-            return res.status(400).send(error.details[0].message);
+            return res.status(400).json({error: error.details[0].message });
 
         const isEmailInUse = await authService.isEmailInUse(data.email);
         if (!isEmailInUse)
-            return res.status(400).send("User with given email does not exist");
+            return res.status(404).json({error: "User with given email does not exist"});
     
         let passwordReseted = await authService.passwordReset(data);
         if(passwordReseted.error)
-            return res.status(400).json(passwordReseted);
+            return res.status(400).json({error: passwordReseted });
 
         res.json({message: "Password reset successfully!!"});
       }catch (error) {
