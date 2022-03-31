@@ -104,6 +104,7 @@ The following features are optional to implement, but if you do, you'll be ranke
 - Start the api service: cd stock-service; npm start;
 - Start the stock service: cd stock-service; npm start; (On a separate terminal)
 - You need nodejs and mongodb running on the server
+- For running the test: cd api-service; npm test;
 
 
 ### Stack and technologies used
