@@ -125,7 +125,7 @@ The following features are optional to implement, but if you do, you'll be ranke
 
 
 ### Additional notes
- - You can follow the link sent in the password-reset link, it will open a pug view connected to the backend
+ - You can follow the link sent in the password-reset email, it will open a pug view connected to the backend
  - The authenticated routes use a bearer token
  - API service is running by default on port 3001
  - Stock service is running by default on port 3002
