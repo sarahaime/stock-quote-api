@@ -90,10 +90,10 @@ The project consists of two separate services:
 The following features are optional to implement, but if you do, you'll be ranked higher in our evaluation process.
 
 * ✅ Add unit tests for the services.
-* Add contract/integration tests for the API service.
+* ✅ (Partially done) Add contract/integration tests for the API service.
 * ✅ Use JWT instead of basic authentication for endpoints.
 * Use containers to orchestrate the services.
-* ✅ Use OpenAPI/Swagger to document the API.
+* ✅ (Partially done) Use OpenAPI/Swagger to document the API.
 * ✅ Add endpoint to reset user password sending an email with the new password.
 
 
@@ -132,5 +132,5 @@ The following features are optional to implement, but if you do, you'll be ranke
  - Stock service is running by default on port 3002
  - .env file contains connections string
  - Everiting mark with a ✅ is done, except the OpenApi that is partially done because of the time
- - Integration test are missing because of the time
+ - Integration test are is partially done because of the time
  - Docker is missing because of the time
