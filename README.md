@@ -124,4 +124,9 @@ The following features are optional to implement, but if you do, you'll be ranke
 
 
 ### Additional notes
-.env file contains connections string
+ - You can follow the link sent in the password-reset link, it will open a pug view connected to the backend
+ - The authenticated routes use a bearer token
+ - .env file contains connections string
+ - The OpenApi is not finished because of the time
+ - Integration test are missing because of the time
+ - Docker is missing because of the time
