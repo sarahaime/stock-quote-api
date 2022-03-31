@@ -131,6 +131,6 @@ The following features are optional to implement, but if you do, you'll be ranke
  - API service is running by default on port 3001
  - Stock service is running by default on port 3002
  - .env file contains connections string
- - Everiting mark with a ✅ is done, except the OpenApi that is partially done because of the time
+ - Everiting mark with a ✅ is done, except the OpenApi documentation and integration tests, they are partially done because of the time
  - Integration test are is partially done because of the time
  - Docker is missing because of the time
