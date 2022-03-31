@@ -79,11 +79,11 @@ The project consists of two separate services:
 
 ![Architecture Diagram](https://git.jobsity.com/jobsity/node-challenge/-/blob/master/architecture.png)
 
-1. A user makes a request asking for Nasdaq's current Stock quote: `GET /stock?q=ndq`
-2. The API service calls the stock service to retrieve the requested stock information
-3. The stock service delegates the call to the external API, parses the response and returns the information back to the API service.
-4. The API service saves the response from the stock service in the database.
-5. The data is formatted and returned to the user.
+1. ✅  A user makes a request asking for Nasdaq's current Stock quote: `GET /stock?q=ndq`
+2. ✅ The API service calls the stock service to retrieve the requested stock information
+3. ✅ The stock service delegates the call to the external API, parses the response and returns the information back to the API service.
+4. ✅ The API service saves the response from the stock service in the database.
+5. ✅ The data is formatted and returned to the user.
 
 ## Bonuses
 
