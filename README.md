@@ -103,6 +103,7 @@ The following features are optional to implement, but if you do, you'll be ranke
 - Install dependencies: cd api-service; npm install and cd stock-service; npm install
 - Start the api service: cd stock-service; npm start;
 - Start the stock service: cd stock-service; npm start; (On a separate terminal)
+- You need nodejs and mongodb running on the server
 
 
 ### Stack and technologies used
@@ -126,6 +127,8 @@ The following features are optional to implement, but if you do, you'll be ranke
 ### Additional notes
  - You can follow the link sent in the password-reset link, it will open a pug view connected to the backend
  - The authenticated routes use a bearer token
+ - API service is running by default on port 3001
+ - Stock service is running by default on port 3002
  - .env file contains connections string
  - The OpenApi is not finished because of the time
  - Integration test are missing because of the time
