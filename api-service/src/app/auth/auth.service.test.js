@@ -24,7 +24,7 @@ describe('Authentication Service Tests', () => {
         registerAns.password.should.be.a("string");
     });
 
-    beforeEach(async () => {
+  beforeEach(async () => {
       request(app);
       await UserModel.deleteMany();
   });
