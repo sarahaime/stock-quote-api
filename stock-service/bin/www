@@ -87,4 +87,6 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+
+  console.log(`🚀🚀 Stock Service listening on ${bind}🚀🚀`);
 }
