@@ -34,10 +34,10 @@ const swaggerOptions={
           servers:["http://localhost:3001"]
       }
   },
-  apis:[`${__dirname}/routes/auth.router.js`]
+  apis:[`${__dirname}/routes/auth.router.js`, `${__dirname}/routes/stock.router.js`]
 }
 
-const swaggerDocs=swaggerJSDoc(swaggerOptions);
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocs));
 
 app.use('/', indexRouter);
