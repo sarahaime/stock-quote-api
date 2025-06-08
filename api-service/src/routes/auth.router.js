@@ -12,7 +12,7 @@ var authController = require('../app/auth/auth.controller');
  *    email:
  *     type: string
  *     description: Email address of the new user
- *     example: 'sarahaime@jobsity.com'
+ *     example: 'sarahaime@domain.com.com'
  *     required: true
  *    role:
  *     type: string
@@ -26,7 +26,7 @@ var authController = require('../app/auth/auth.controller');
  *    email:
  *     type: string
  *     description: Email address of the user
- *     example: 'sarahaime@jobsity.com'
+ *     example: 'sarahaime@domain.com.com'
  *     required: true
  *    password:
  *      type: string
@@ -39,7 +39,7 @@ var authController = require('../app/auth/auth.controller');
  *      email:
  *       type: string
  *       description: Email address of the user to reset password
- *       example: 'sarahaime@jobsity.com'
+ *       example: 'sarahaime@domain.com.com'
  *       required: true
  *  PasswordReq:
  *     type: object
@@ -47,7 +47,7 @@ var authController = require('../app/auth/auth.controller');
  *      email:
  *       type: string
  *       description: Email address of the user
- *       example: 'sarahaime@jobsity.com'
+ *       example: 'sarahaime@domain.com.com'
  *       required: true
  *      password:
  *       type: string

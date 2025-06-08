@@ -74,7 +74,7 @@ The project consists of two separate services:
 
 ## Architecture
 
-![Architecture Diagram](https://git.jobsity.com/jobsity/node-challenge/-/blob/master/architecture.png)
+![Architecture Diagram](/architecture.png)
 
 1.  A user makes a request asking for Nasdaq's current Stock quote: `GET /stock?q=ndq`
 2.  The API service calls the stock service to retrieve the requested stock information
