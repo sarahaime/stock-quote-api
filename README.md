@@ -1,14 +1,12 @@
-This project is done to show my knowledge of back-end web technologies, specifically in Node.js, REST APIs, and decoupled services (microservices).
-
-# Node.js Challenge
+# Stock Quote Api
 
 ### Description
-This is a simple API with Node.js that allow users to query [stock quotes](https://www.investopedia.com/terms/s/stockquote.asp). It is scaffolded with two Express apps.
+This project features a simple API built with Node.js that allows users to query [stock quotes](https://www.investopedia.com/terms/s/stockquote.asp). It is structured using two separate Express applications:
 
-The project consists of two separate services:
+- **User-Facing API**: This service handles requests from registered users seeking stock quote information.
+- **Internal Stock Service**: This service queries external APIs to retrieve the requested stock quote data.
 
-* A user-facing API that receive requests from registered users asking for quote information.
-* An internal stock service that queries external APIs to retrieve the requested quote information
+The separation of these services enhances modularity and scalability, making it easier to maintain and extend functionality.
 
 
 ### API service
@@ -21,7 +19,7 @@ The project consists of two separate services:
     `POST /register`
 
     ```json
-      { "email": "johndoe@contoso.com", "role": "user" }  //role could be user/admin
+      { "email": "johndoe@domain.com", "role": "user" }  //role could be user/super_admin
     ```
 
     Response example:
@@ -29,7 +27,7 @@ The project consists of two separate services:
     `POST /register`
 
     ```json
-      { "email": "johndoe@contoso.com", "password": "bda5d07453dfde4440803cfcdec48d92" }
+      { "email": "johndoe@domain.com", "password": "bda5d07453dfde4440803cfcdec48d92" }
     ```
 * When a user requests a stock quote (calls the stock endpoint in the api service), if it exists, it save and relate to that user in the database.
   * The response returned by the API service is like this:
@@ -55,6 +53,7 @@ The project consists of two separate services:
     [
         {"date": "2021-04-01T19:20:30Z", "name": "APPLE", "symbol": "AAPL.US", "open": "123.66", "high": 123.66, "low": 122.49, "close": "123"},
         {"date": "2021-03-25T11:10:55Z", "name": "APPLE", "symbol": "AAPL.US", "open": "121.10", "high": 123.66, "low": 122, "close": "122"},
+    ]
     ```
 * A super user (and only super users) can hit the stats endpoint, which will return the top 5 most requested stocks:
 
